@@ -1,5 +1,5 @@
 This software except of the included Crypto++ library stuff (binary
-version and header files in NdkTutorial/jni/cryptopp subfolder) is
+version and header files in cryptopp subfolder) is
 licensed under Apache-2.0 License (see below).
 Crypto++ library license terms and conditions
 can be found at http://www.cryptopp.com/License.txt
