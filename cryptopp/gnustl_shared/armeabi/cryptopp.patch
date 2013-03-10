@@ -1,0 +1,46 @@
+diff -r -u cryptopp-orig/GNUmakefile cryptopp-andy.armeabi.stlport/GNUmakefile
+--- cryptopp-orig/GNUmakefile	2010-08-09 14:22:42.000000000 +0200
++++ cryptopp-andy.armeabi.stlport/GNUmakefile	2013-03-09 19:17:12.934327979 +0100
+@@ -37,7 +37,7 @@
+ ifeq ($(UNAME),Darwin)
+ CXXFLAGS += -arch x86_64 -arch i386
+ else
+-CXXFLAGS += -march=native
++CXXFLAGS += -march=armv5te
+ endif
+ endif
+ 
+@@ -78,7 +78,12 @@
+ endif
+ 
+ ifeq ($(UNAME),Linux)
+-LDFLAGS += -pthread
++## uncomment the below line to use GNU STL
++LDLIBS += -lgnustl_shared
++## uncomment the below 3 lines to use STLport
++#LDFLAGS += -nodefaultlibs -L$(NDK)/sources/cxx-stl/stlport/libs/armeabi -Wl,--no-undefined
++#LDLIBS += -lstlport_shared -lc -lm -ldl -lgcc
++#CXXFLAGS += -nostdinc++ -I$(NDK)/sources/cxx-stl/stlport/stlport
+ ifneq ($(shell uname -i | $(EGREP) -c "(_64|d64)"),0)
+ M32OR64 = -m64
+ endif
+@@ -151,7 +156,7 @@
+ 	$(RANLIB) $@
+ 
+ libcryptopp.so: $(LIBOBJS)
+-	$(CXX) -shared -o $@ $(LIBOBJS)
++	$(CXX) -shared -o $@ $(LIBOBJS) $(LDFLAGS) $(LDLIBS)
+ 
+ cryptest.exe: libcryptopp.a $(TESTOBJS)
+ 	$(CXX) -o $@ $(CXXFLAGS) $(TESTOBJS) -L. -lcryptopp $(LDFLAGS) $(LDLIBS)
+diff -r -u cryptopp-orig/wait.h cryptopp-andy.armeabi.stlport/wait.h
+--- cryptopp-orig/wait.h	2010-08-06 18:44:32.000000000 +0200
++++ cryptopp-andy.armeabi.stlport/wait.h	2013-03-08 15:50:01.758533453 +0100
+@@ -13,6 +13,7 @@
+ #include <winsock2.h>
+ #else
+ #include <sys/types.h>
++#include <sys/select.h>
+ #endif
+ 
+ #include "hrtimer.h"

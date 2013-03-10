@@ -1,11 +1,11 @@
 This software except of the included Crypto++ library stuff (binary
-version and header files in cryptopp subfolder) is
+versions and header files in cryptopp subfolder) is
 licensed under Apache-2.0 License (see below).
 Crypto++ library license terms and conditions
 can be found at http://www.cryptopp.com/License.txt
-Next to the binary version of Cryptopp++ lib there's a file named
+Next to each binary version of Cryptopp++ lib there's a file named
 cryptopp.patch that contains modification to Crypto++ sources
-that were introduced to build the binary version.
+that were introduced to build the given binary version.
 
 
 
